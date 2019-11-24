@@ -1,0 +1,1 @@
+2019-11-23 23:22:52,956 - ERROR - scheduler.pyrun_spider[:36] - 本篇文章抓取停止，'NoneType' object has no attribute 'get_text'
