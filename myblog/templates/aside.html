@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<aside class="col-md-4 blog-aside">
+
+    <div class="aside-widget">
+        <header>
+            <h3>精选文章</h3>
+        </header>
+        <div class="body">
+            <ul class="clean-list">
+              {% for article in featured_articles %}
+                <li><a href="{{url_for('articles.single', article_id = article.article_id)}}">{{ article.article_title }}</a></li>
+              {%endfor%}
+            </ul>
+        </div>
+    </div>
+
+    <div class="aside-widget">
+        <header>
+            <h3>专题系列</h3>
+        </header>
+        <div class="body">
+            <ul class="clean-list">
+              {% for article in articles %}
+                <li><a href="">{{ article.title }}</a></li>
+              {%endfor%}
+            </ul>
+        </div>
+    </div>
+
+    <div class="aside-widget">
+        <header>
+            <h3>分类</h3>
+        </header>
+        <div class="body clearfix">
+            <ul class="tags">
+              {%for category in categories%}
+                <li><a href="{{url_for('articles.category', category=category.name)}}">{{category.name}}</a></li>
+              {%endfor%}
+            </ul>
+        </div>
+    </div>
+</aside>
+</body>
+</html>

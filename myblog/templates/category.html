@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block subheader %}
+  <a href="{{ url_for('articles.index') }}">Blog</a>
+  <span class="separator">&#x2F;</span>
+  <a href="{{url_for('articles.category', category=category)}}">{{category}}</a>
+{% endblock %}
+{% block content %}
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 blog-main">
+                    <div class="row">
+                      {% for article in articles%}
+                        <div class="col-md-6 col-sm-6">
+                            <article class=" blog-teaser">
+                                <header>
+                                    <img src="{{ url_for('static', filename='img/1.jpg') }}" alt="">
+                                    <h3><a href="{{ url_for('articles.single', article_id = article.id) }}">{{ article.title }}</a></h3>
+                                    <span class="meta">{{ article.publish_time }}, {{ article.author }}</span>
+                                    <hr>
+                                </header>
+                                <div class="body">
+                                    {{ article.desc }}
+                                </div>
+                                <div class="clearfix">
+                                    <a href="{{ url_for('articles.single', article_id = article.id) }}" class="btn btn-clean-one">Read more</a>
+                                </div>
+                            </article>
+                        </div>
+                        {%endfor%}
+                    </div>
+
+                    <nav class="paging">
+                        <ul class="pagination">
+                            {% if pagination.has_prev %}
+                            <li>
+                                <a href="{{url_for('articles.category',category=category, page=pagination.prev_num)}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {%endif%}
+                            {% for page in page_range%}
+                              {%if page == pagination.page%}
+                                <li class="active"><a href="{{url_for('articles.category',category=category, page=page)}}">{{page}}</a></li>
+                              {%else%}
+                                <li><a href="{{url_for('articles.category', category=category, page=page)}}">{{page}}</a></li>
+                              {%endif%}
+                            {% endfor %}
+                            {% if pagination.has_next %}
+                            <li>
+                                <a href="{{url_for('articles.category',category=category, page=pagination.next_num)}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {%endif%}
+                        </ul>
+                    </nav>
+                </div>
+                {% include "aside.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
